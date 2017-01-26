@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context="com.linsaya.heima_googleplay.activity.MainActivity">
 
-    <com.linsaya.heima_googleplay.UI.PagerTab
+    <com.linsaya.heima_googleplay.ui.PagerTab
         android:id="@+id/pt_title"
         android:layout_width="match_parent"
         android:layout_height="42dp"

@@ -1,4 +1,4 @@
-package com.linsaya.heima_googleplay.UI;
+package com.linsaya.heima_googleplay.ui;
 
 import android.content.Context;
 import android.graphics.Canvas;
