@@ -19,6 +19,7 @@ public class FragmentFactory {
 
     public static BaseFragment creatFragment(int position) {
 
+        //从hashmap中获取缓存的fragment，判断如果对象不空时，则新建fragment
         fragmentMap = new HashMap<>();
         BaseFragment baseFragment = fragmentMap.get(position);
         if (baseFragment == null) {
@@ -47,6 +48,7 @@ public class FragmentFactory {
                     break;
             }
         }
+        //讲新建的fragment放入HashMap中
         fragmentMap.put(position, baseFragment);
         return baseFragment;
     }
