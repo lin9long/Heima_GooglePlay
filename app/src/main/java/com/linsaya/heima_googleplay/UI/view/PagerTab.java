@@ -1,4 +1,4 @@
-package com.linsaya.heima_googleplay.ui;
+package com.linsaya.heima_googleplay.UI.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -16,7 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.linsaya.heima_googleplay.R;
-import com.linsaya.heima_googleplay.activity.BaseActivity;
+import com.linsaya.heima_googleplay.UI.activity.BaseActivity;
 import com.linsaya.heima_googleplay.utils.UIUtils;
 
 

@@ -5,11 +5,12 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Process;
+import android.view.View;
 
 import com.linsaya.heima_googleplay.global.GooglePlayApplication;
 
 /**
- * Created by Administrator on 2017/1/25.
+ * Created by Administrator on 2017/1/26.
  */
 
 public class UIUtils {
@@ -31,6 +32,11 @@ public class UIUtils {
     //获取字符串
     public static String getString(int id) {
         return getContext().getResources().getString(id);
+    }
+
+    //加载布局
+    public static View influte(int id) {
+        return View.inflate(getContext(), id, null);
     }
 
     //获取字符数组
@@ -85,3 +91,4 @@ public class UIUtils {
     }
 
 }
+

@@ -1,12 +1,12 @@
-package com.linsaya.heima_googleplay.fragmentfactory;
+package com.linsaya.heima_googleplay.UI.fragmentfactory;
 
-import com.linsaya.heima_googleplay.fragmentfactory.fragment.AppFragment;
-import com.linsaya.heima_googleplay.fragmentfactory.fragment.CategoryFragment;
-import com.linsaya.heima_googleplay.fragmentfactory.fragment.GameFragment;
-import com.linsaya.heima_googleplay.fragmentfactory.fragment.HomeFragment;
-import com.linsaya.heima_googleplay.fragmentfactory.fragment.HotFragment;
-import com.linsaya.heima_googleplay.fragmentfactory.fragment.RecommendFragment;
-import com.linsaya.heima_googleplay.fragmentfactory.fragment.SubjectFragment;
+import com.linsaya.heima_googleplay.UI.fragmentfactory.fragment.AppFragment;
+import com.linsaya.heima_googleplay.UI.fragmentfactory.fragment.CategoryFragment;
+import com.linsaya.heima_googleplay.UI.fragmentfactory.fragment.GameFragment;
+import com.linsaya.heima_googleplay.UI.fragmentfactory.fragment.HomeFragment;
+import com.linsaya.heima_googleplay.UI.fragmentfactory.fragment.HotFragment;
+import com.linsaya.heima_googleplay.UI.fragmentfactory.fragment.RecommendFragment;
+import com.linsaya.heima_googleplay.UI.fragmentfactory.fragment.SubjectFragment;
 
 import java.util.HashMap;
 
@@ -15,13 +15,13 @@ import java.util.HashMap;
  */
 
 public class FragmentFactory {
-    public static HashMap<Integer, BaseFragment> fragmentMap;
+    public static HashMap<Integer, BaseFragment> mFragmentMap = new HashMap<>();;
 
     public static BaseFragment creatFragment(int position) {
 
         //从hashmap中获取缓存的fragment，判断如果对象不空时，则新建fragment
-        fragmentMap = new HashMap<>();
-        BaseFragment baseFragment = fragmentMap.get(position);
+
+        BaseFragment baseFragment = mFragmentMap.get(position);
         if (baseFragment == null) {
 
             switch (position) {
@@ -46,10 +46,13 @@ public class FragmentFactory {
                 case 6:
                     baseFragment = new HotFragment();
                     break;
+                default:
+                    break;
             }
+            //讲新建的fragment放入HashMap中
+            mFragmentMap.put(position, baseFragment);
         }
-        //讲新建的fragment放入HashMap中
-        fragmentMap.put(position, baseFragment);
+
         return baseFragment;
     }
 }

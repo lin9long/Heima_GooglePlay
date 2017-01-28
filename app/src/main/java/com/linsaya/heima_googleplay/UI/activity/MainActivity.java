@@ -1,4 +1,4 @@
-package com.linsaya.heima_googleplay.activity;
+package com.linsaya.heima_googleplay.UI.activity;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,9 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 
 import com.linsaya.heima_googleplay.R;
-import com.linsaya.heima_googleplay.fragmentfactory.BaseFragment;
-import com.linsaya.heima_googleplay.fragmentfactory.FragmentFactory;
-import com.linsaya.heima_googleplay.ui.PagerTab;
+import com.linsaya.heima_googleplay.UI.view.PagerTab;
+import com.linsaya.heima_googleplay.UI.fragmentfactory.BaseFragment;
+import com.linsaya.heima_googleplay.UI.fragmentfactory.FragmentFactory;
 import com.linsaya.heima_googleplay.utils.UIUtils;
 
 
@@ -34,7 +34,25 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
+        //设置PagerTab的点击事件
+        pt_title.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                BaseFragment fragment = FragmentFactory.creatFragment(position);
+                System.out.println("当前状态为：main");
+                fragment.loadData();
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void initUI() {
@@ -42,6 +60,7 @@ public class MainActivity extends BaseActivity {
         vp_content = (ViewPager) findViewById(R.id.vp_content);
         vp_content.setAdapter(new MyAdapter(getSupportFragmentManager()));
         pt_title.setViewPager(vp_content);
+
     }
 
     //设置FragmentPagerAdapter，往viewpager里面填充fragment

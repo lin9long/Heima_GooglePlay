@@ -1,6 +1,5 @@
-package com.linsaya.heima_googleplay.activity;
+package com.linsaya.heima_googleplay.UI.activity;
 
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 
 /**
