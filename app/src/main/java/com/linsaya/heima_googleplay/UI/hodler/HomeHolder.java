@@ -3,6 +3,7 @@ package com.linsaya.heima_googleplay.UI.hodler;
 import android.text.format.Formatter;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -13,11 +14,14 @@ import com.linsaya.heima_googleplay.utils.UIUtils;
 
 import org.xutils.x;
 
+
+import static com.linsaya.heima_googleplay.R.id.tv_name;
+
 /**
- * Created by Administrator on 2017/1/27.
+ * Created by Administrator on 2017/1/29.
  */
 
-public class AppHolder extends BaseHolder<AppInfo> {
+public class HomeHolder extends BaseHolder<AppInfo> {
 
     private TextView tv_content;
     private ImageView iv_download;
@@ -28,10 +32,9 @@ public class AppHolder extends BaseHolder<AppInfo> {
     private TextView tv_des;
 
 
-    //初始化布局，加载view，查找内部控件
     @Override
     public View initView() {
-        View view = UIUtils.influte(R.layout.listview_app_item);
+        View view = UIUtils.influte(R.layout.listview_home_item);
         //  tv_content = (TextView) view.findViewById(R.id.tv_content);
         iv_download = (ImageView) view.findViewById(R.id.iv_download);
         iv_pic = (ImageView) view.findViewById(R.id.iv_pic);
@@ -42,14 +45,13 @@ public class AppHolder extends BaseHolder<AppInfo> {
         return view;
     }
 
-    //使用传入的data刷新界面
     @Override
     public void refreshView(AppInfo data) {
+        // tv_content.setText(data.name);
         tv_name.setText(data.name);
         tv_des.setText(data.des);
         rb_stars.setRating(data.stars);
         tv_size.setText(Formatter.formatFileSize(UIUtils.getContext(), data.size));
         x.image().bind(iv_pic, HttpHelper.URL + "image?name=" + data.iconUrl);
     }
-
 }

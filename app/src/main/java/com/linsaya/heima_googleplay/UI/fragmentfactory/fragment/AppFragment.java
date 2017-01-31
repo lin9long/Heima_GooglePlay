@@ -9,6 +9,9 @@ import com.linsaya.heima_googleplay.UI.hodler.AppHolder;
 import com.linsaya.heima_googleplay.UI.hodler.BaseHolder;
 import com.linsaya.heima_googleplay.UI.view.LoadingPager;
 import com.linsaya.heima_googleplay.UI.fragmentfactory.BaseFragment;
+import com.linsaya.heima_googleplay.UI.view.MyListView;
+import com.linsaya.heima_googleplay.domain.AppInfo;
+import com.linsaya.heima_googleplay.http.protocol.AppPortocol;
 import com.linsaya.heima_googleplay.utils.UIUtils;
 
 import java.util.ArrayList;
@@ -19,51 +22,52 @@ import java.util.List;
  */
 
 public class AppFragment extends BaseFragment {
-    private List<String> data;
+    private List<AppInfo> data;
 
     @Override
     public View onCreateSuccessPager() {
-        ListView listView = new ListView(UIUtils.getContext());
-        HomeAdapter HomeAdapter = new HomeAdapter(data);
+        ListView listView = new MyListView(UIUtils.getContext());
+        AppAdapter HomeAdapter = new AppAdapter(data);
         listView.setAdapter(HomeAdapter);
         return listView;
     }
 
     @Override
     public LoadingPager.ResultState onLoad() {
-        data = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            data.add("测试数据：" + i);
-        }
-        return LoadingPager.ResultState.STATE_SUCCESS;
+        AppPortocol appPortocol = new AppPortocol();
+        data = appPortocol.getData(0);
+        return check(data);
     }
 
 
-    class HomeAdapter extends MyBaseAdapter<String> {
+    class AppAdapter extends MyBaseAdapter<AppInfo> {
 
 
-        public HomeAdapter(List<String> list) {
+        public AppAdapter(List<AppInfo> list) {
             super(list);
         }
 
-        @Override
-        public BaseHolder getHolder() {
-            return new AppHolder();
-        }
 
         @Override
-        public List<String> onLoadMore() {
-            List<String> data = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                data.add("这是加载更多数据了" + i);
-            }
-            SystemClock.sleep(2000);
+        public List<AppInfo> onLoadMore() {
+//            List<String> data = new ArrayList<>();
+//            for (int i = 0; i < 20; i++) {
+//                data.add("这是加载更多数据了" + i);
+//            }
+//            SystemClock.sleep(2000);
+            AppPortocol appPortocol = new AppPortocol();
+            List<AppInfo> data = appPortocol.getData(getListSize());
             return data;
         }
 
         @Override
         public boolean hasMore() {
             return true;
+        }
+
+        @Override
+        public BaseHolder getHolder(int position) {
+            return new AppHolder();
         }
         //        @Override
 //        public View getView(int position, View convertView, ViewGroup parent) {

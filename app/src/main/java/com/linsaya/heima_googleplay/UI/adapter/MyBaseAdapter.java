@@ -17,9 +17,9 @@ import java.util.List;
 public abstract class MyBaseAdapter<T> extends android.widget.BaseAdapter {
 
     private List<T> list;
-    private static final int TYPE_MORE = 1;
+    private static final int TYPE_MORE = 0;
     //此处必须要返回0，因为系统默认显示正常数据时，返回0
-    private static final int TYPE_NORMAL = 0;
+    private static final int TYPE_NORMAL = 1;
 
     public MyBaseAdapter(List<T> list) {
         this.list = list;
@@ -53,12 +53,12 @@ public abstract class MyBaseAdapter<T> extends android.widget.BaseAdapter {
         if (position == getCount() - 1) {
             return TYPE_MORE;
         } else {
-            return getInnerType();
+            return getInnerType(position);
         }
     }
 
     //提供一个方法，供子类调用传入参数
-    public int getInnerType() {
+    public int getInnerType(int position) {
         return TYPE_NORMAL;
     }
 
@@ -74,7 +74,7 @@ public abstract class MyBaseAdapter<T> extends android.widget.BaseAdapter {
             if (getItemViewType(position) == TYPE_MORE) {
                 holder = new MoreHolder(hasMore());
             } else {
-                holder = getHolder();
+                holder = getHolder(position);
             }
 
         } else {
@@ -107,43 +107,49 @@ public abstract class MyBaseAdapter<T> extends android.widget.BaseAdapter {
     public boolean isLoadMore = false;
 
     public void loadMore(final MoreHolder moreHolder) {
-        isLoadMore = true;
-        new Thread() {
-            @Override
-            public void run() {
-                final List<T> moreData = onLoadMore();
-                UIUtils.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (moreData != null) {
-                            //如果当前数据少于20条，则判断为没有更多数据
-                            if (moreData.size() < 20) {
-                                moreHolder.setData(moreHolder.STATE_MORE_NONE);
-                                Toast.makeText(UIUtils.getContext(), "没有更多数据了！", Toast.LENGTH_SHORT).show();
+        if (!isLoadMore) {
+            isLoadMore = true;
+            new Thread() {
+                @Override
+                public void run() {
+                    final List<T> moreData = onLoadMore();
+                    UIUtils.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (moreData != null) {
+                                //如果当前数据少于20条，则判断为没有更多数据
+                                if (moreData.size() < 20) {
+                                    moreHolder.setData(moreHolder.STATE_MORE_NONE);
+                                    Toast.makeText(UIUtils.getContext(), "没有更多数据了！", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    //如果当前数据大于20条，则判断为还有更多数据
+                                    moreHolder.setData(moreHolder.STATE_MORE_MORE);
+                                }
+                                //统一在此将数据添加到布局内，刷新界面显示
+                                list.addAll(moreData);
+                                MyBaseAdapter.this.notifyDataSetChanged();
+
                             } else {
-                                //如果当前数据大于20条，则判断为还有更多数据
-                                moreHolder.setData(moreHolder.STATE_MORE_MORE);
+                                //如果返回无数据，则证明是获取数据错误
+                                moreHolder.setData(moreHolder.STATE_MORE_ERROR);
                             }
-                            //统一在此将数据添加到布局内，刷新界面显示
-                            list.addAll(moreData);
-                            MyBaseAdapter.this.notifyDataSetChanged();
-
-                        } else {
-                            //如果返回无数据，则证明是获取数据错误
-                            moreHolder.setData(moreHolder.STATE_MORE_ERROR);
+                            isLoadMore = false;
                         }
-                        isLoadMore = false;
-                    }
-                });
-            }
-        }.start();
+                    });
+                }
+            }.start();
+        }
+    }
 
+    //获取当前数组大小，同时作为index返回给，作为数据的分页符
+    public int getListSize() {
+        return list.size();
     }
 
 
     //子类重写此方法,获取对应的viewholder
-    public abstract BaseHolder getHolder();
+    public abstract BaseHolder getHolder(int position);
 
-    //
+    //加载更多数据
     public abstract List<T> onLoadMore();
 }

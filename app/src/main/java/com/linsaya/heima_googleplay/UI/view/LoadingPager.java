@@ -3,6 +3,7 @@ package com.linsaya.heima_googleplay.UI.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 
 import com.linsaya.heima_googleplay.R;
@@ -49,6 +50,13 @@ public abstract class LoadingPager extends FrameLayout {
 
         if (pager_error == null) {
             pager_error = View.inflate(UIUtils.getContext(), R.layout.pager_error, null);
+            Button btn_retry = (Button) pager_error.findViewById(R.id.btn_retry);
+            btn_retry.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    loadData();
+                }
+            });
             addView(pager_error);
         }
         if (pager_empty == null) {
@@ -81,7 +89,6 @@ public abstract class LoadingPager extends FrameLayout {
      * 请求网络数据，获取返回码赋值给mCurrentState，刷新界面
      */
     public void loadData() {
-        System.out.println("方法执行啦！！！！！");
         if (mCurrentState != STATE_LOAD_LOADING) {
             mCurrentState = STATE_LOAD_LOADING;
             new Thread() {
@@ -94,7 +101,7 @@ public abstract class LoadingPager extends FrameLayout {
                         public void run() {
                             if (resultState != null) {
                                 mCurrentState = resultState.getState();
-                                System.out.println("当前状态为："+resultState.getState());
+                                //System.out.println("当前状态为："+resultState.getState());
                                 showCurrentPager();
                             }
                         }
@@ -122,5 +129,6 @@ public abstract class LoadingPager extends FrameLayout {
 
     public abstract View onCreateSuccessPager();
 
+    //返回当前的状态码，用以刷新界面
     public abstract ResultState initData();
 }

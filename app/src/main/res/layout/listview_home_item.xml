@@ -66,12 +66,15 @@
                 android:padding="5dp">
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:id="@+id/iv_download"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/ic_download" />
 
                 <TextView
+                    android:textColor="#000"
+                    android:textSize="18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

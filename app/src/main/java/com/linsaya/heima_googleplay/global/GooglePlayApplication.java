@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Process;
 
+import org.xutils.x;
+
 /**
  * Created by Administrator on 2017/1/25.
  */
@@ -33,5 +35,6 @@ public class GooglePlayApplication extends Application {
         context = getApplicationContext();
         handler = new Handler();
         myTid = Process.myTid();
+        x.Ext.init(this);
     }
 }
