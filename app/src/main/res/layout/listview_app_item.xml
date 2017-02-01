@@ -67,15 +67,18 @@
 
                 <ImageView
                     android:id="@+id/iv_download"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
                     android:background="@drawable/ic_download" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="下载" />
+                    android:text="下载"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
             </LinearLayout>
         </RelativeLayout>
 

@@ -14,10 +14,13 @@ import java.util.List;
  */
 
 public class HomePortocol extends BaseProtocol<List<AppInfo>> {
+
+    private List<String> piclist;
+
     @Override
     public List<AppInfo> processData(String json) {
         List<AppInfo> appInfoList = new ArrayList<>();
-        List<String> piclist = new ArrayList<>();
+        piclist = new ArrayList<>();
 
         try {
             JSONObject object = new JSONObject(json);
@@ -47,6 +50,10 @@ public class HomePortocol extends BaseProtocol<List<AppInfo>> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<String> getPictures() {
+        return piclist;
     }
 
     @Override

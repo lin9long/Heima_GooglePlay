@@ -24,7 +24,7 @@ public abstract class BaseProtocol<T> {
             result = getDataFromServer(index);
         }
         if (!StringUtils.isEmpty(result)) {
-            System.out.println("读取换成数据啦");
+          //  System.out.println("读取换成数据啦");
             T data = processData(result);
             return data;
         }
@@ -38,9 +38,9 @@ public abstract class BaseProtocol<T> {
         HttpHelper.HttpResult result = HttpHelper.get(HttpHelper.URL + getKey() + "?index=" + index + getParams());
         if (result != null) {
             String string = result.getString();
-            System.out.println("返回结果为：" + string);
+        //    System.out.println("返回结果为：" + string);
             if (!StringUtils.isEmpty(string)) {
-                System.out.println("开始设置缓存了！");
+         //       System.out.println("开始设置缓存了！");
                 setCache(index, string);
             }
             return string;
@@ -51,7 +51,7 @@ public abstract class BaseProtocol<T> {
 
     //写入缓存
     public void setCache(int index, String json) {
-        System.out.println("设置缓存方法执行了！");
+     //   System.out.println("设置缓存方法执行了！");
         //获取缓存文件路径
         File cacheDir = UIUtils.getContext().getCacheDir();
         //在制定路径创建文件及名称
@@ -64,7 +64,7 @@ public abstract class BaseProtocol<T> {
             writer.write(deadline + "\n");
             writer.write(json);
             writer.flush();
-            System.out.println("设置缓存结束啦！！");
+        //    System.out.println("设置缓存结束啦！！");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
