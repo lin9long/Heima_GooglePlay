@@ -103,9 +103,8 @@ public class HomeHeaderHolder extends BaseHolder<List<String>> {
                 //通过位置获取前一个显示的小圆点，将其背景换成未被选中的小圆点
                 ImageView prePoint = (ImageView) llContainer.getChildAt(previousPoint);
                 prePoint.setBackgroundResource(R.drawable.indicator_normal);
-
+                //给当前位置赋值给上一个布局位置
                 previousPoint = position;
-
 
             }
 

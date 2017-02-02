@@ -1,14 +1,15 @@
 package com.linsaya.heima_googleplay.UI.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
 
 import com.linsaya.heima_googleplay.R;
+import com.linsaya.heima_googleplay.UI.hodler.AppDesDetailHolder;
 import com.linsaya.heima_googleplay.UI.hodler.AppDetailHolder;
+import com.linsaya.heima_googleplay.UI.hodler.AppPicDetailHolder;
 import com.linsaya.heima_googleplay.UI.hodler.AppSafeinfoHolder;
 import com.linsaya.heima_googleplay.UI.view.LoadingPager;
 import com.linsaya.heima_googleplay.domain.AppInfo;
@@ -65,10 +66,23 @@ public class HomeDetailActivity extends BaseActivity {
         //将内容添加到对应的帧布局内
         fl_app_detail.addView(appDetailHolder.getView());
 
+        //记载应用安全信息布局页
         FrameLayout fl_app_safeinfo = (FrameLayout) view.findViewById(R.id.fl_app_safeinfo);
         AppSafeinfoHolder appSafeinfoHolder = new AppSafeinfoHolder();
         appSafeinfoHolder.setData(data);
         fl_app_safeinfo.addView(appSafeinfoHolder.getView());
+
+        //加载应用界面图片布局
+        HorizontalScrollView hsv_detail_pic = (HorizontalScrollView) view.findViewById(R.id.hsv_detail_pic);
+        AppPicDetailHolder picDetailHolder = new AppPicDetailHolder();
+        picDetailHolder.setData(data);
+        hsv_detail_pic.addView(picDetailHolder.getView());
+
+        //加载应用详情介绍布局
+        FrameLayout fl_app_des = (FrameLayout) view.findViewById(R.id.fl_app_des);
+        AppDesDetailHolder desDetailHolder = new AppDesDetailHolder();
+        desDetailHolder.setData(data);
+        fl_app_des.addView(desDetailHolder.getView());
 
         return view;
     }
