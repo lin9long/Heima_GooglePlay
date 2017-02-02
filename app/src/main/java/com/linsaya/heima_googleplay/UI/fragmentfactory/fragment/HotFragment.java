@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.linsaya.heima_googleplay.UI.view.FlowLayout;
 import com.linsaya.heima_googleplay.UI.view.LoadingPager;
 import com.linsaya.heima_googleplay.UI.fragmentfactory.BaseFragment;
+import com.linsaya.heima_googleplay.UI.view.MyFlowLayout;
 import com.linsaya.heima_googleplay.http.protocol.HotPortocol;
 import com.linsaya.heima_googleplay.utils.DrawableUtils;
 import com.linsaya.heima_googleplay.utils.UIUtils;
@@ -30,18 +31,19 @@ public class HotFragment extends BaseFragment {
     @Override
     public View onCreateSuccessPager() {
         //生成一个flowLayout自定义控件
-        FlowLayout flowLayout = new FlowLayout(UIUtils.getContext());
+        //FlowLayout flowLayout = new FlowLayout(UIUtils.getContext());
+        MyFlowLayout flowLayout = new MyFlowLayout(UIUtils.getContext());
         //将flowLayout放入scrollView内可以使控件自由滑动
         ScrollView scrollView = new ScrollView(UIUtils.getContext());
         int size = UIUtils.dip2px(10);
         flowLayout.setPadding(size, size, size, size);
-        flowLayout.setVerticalSpacing(size);
-        flowLayout.setHorizontalSpacing(size);
+        //flowLayout.setVerticalSpacing(size);
+        //flowLayout.setHorizontalSpacing(size);
         for (int i = 0; i < data.size(); i++) {
             //往flowLayout内填充textView控件
             TextView textView = new TextView(UIUtils.getContext());
             textView.setTextColor(Color.WHITE);
-            textView.setTextSize(25);
+            textView.setTextSize(18);
             textView.setGravity(Gravity.CENTER);
             textView.setPadding(size,size,size,size);
             final String name = data.get(i);

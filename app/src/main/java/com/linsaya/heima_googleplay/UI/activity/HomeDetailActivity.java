@@ -2,6 +2,7 @@ package com.linsaya.heima_googleplay.UI.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -41,11 +42,7 @@ public class HomeDetailActivity extends BaseActivity {
             }
         };
         setContentView(mLoadingPager);
-        //在actionbar中显示应用图标
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setLogo(R.drawable.ic_launcher);
-        actionBar.setDisplayUseLogoEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
+        initActionBar();
         //intent内携带参数传递数据
         packagename = getIntent().getStringExtra("packageName");
         System.out.println("包名为：" + packagename);
@@ -53,6 +50,25 @@ public class HomeDetailActivity extends BaseActivity {
         mLoadingPager.loadData();
 
 
+    }
+
+    public void initActionBar() {
+        //在actionbar中显示应用图标
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setLogo(R.drawable.ic_launcher);
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public View onCreateSuccessPager() {
