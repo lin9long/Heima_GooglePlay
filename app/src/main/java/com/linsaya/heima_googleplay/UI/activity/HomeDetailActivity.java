@@ -10,11 +10,13 @@ import android.widget.HorizontalScrollView;
 import com.linsaya.heima_googleplay.R;
 import com.linsaya.heima_googleplay.UI.hodler.AppDesDetailHolder;
 import com.linsaya.heima_googleplay.UI.hodler.AppDetailHolder;
+import com.linsaya.heima_googleplay.UI.hodler.AppDownLoadHolder;
 import com.linsaya.heima_googleplay.UI.hodler.AppPicDetailHolder;
 import com.linsaya.heima_googleplay.UI.hodler.AppSafeinfoHolder;
 import com.linsaya.heima_googleplay.UI.view.LoadingPager;
 import com.linsaya.heima_googleplay.domain.AppInfo;
 import com.linsaya.heima_googleplay.http.protocol.HomeDetailPortocol;
+import com.linsaya.heima_googleplay.manager.ThreadManager;
 import com.linsaya.heima_googleplay.utils.UIUtils;
 
 /**
@@ -99,6 +101,12 @@ public class HomeDetailActivity extends BaseActivity {
         AppDesDetailHolder desDetailHolder = new AppDesDetailHolder();
         desDetailHolder.setData(data);
         fl_app_des.addView(desDetailHolder.getView());
+
+        //加载应用下载布局
+        FrameLayout fl_app_download = (FrameLayout) view.findViewById(R.id.fl_app_download);
+        AppDownLoadHolder downLoadHolder = new AppDownLoadHolder();
+        downLoadHolder.setData(data);
+        fl_app_download.addView(downLoadHolder.getView());
 
         return view;
     }

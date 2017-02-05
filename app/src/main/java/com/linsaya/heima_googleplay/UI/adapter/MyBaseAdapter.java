@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.linsaya.heima_googleplay.UI.hodler.BaseHolder;
 import com.linsaya.heima_googleplay.UI.hodler.MoreHolder;
+import com.linsaya.heima_googleplay.manager.ThreadManager;
 import com.linsaya.heima_googleplay.utils.UIUtils;
 
 import java.util.List;
@@ -109,7 +110,36 @@ public abstract class MyBaseAdapter<T> extends android.widget.BaseAdapter {
     public void loadMore(final MoreHolder moreHolder) {
         if (!isLoadMore) {
             isLoadMore = true;
-            new Thread() {
+//            new Thread() {
+//                @Override
+//                public void run() {
+//                    final List<T> moreData = onLoadMore();
+//                    UIUtils.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            if (moreData != null) {
+//                                //如果当前数据少于20条，则判断为没有更多数据
+//                                if (moreData.size() < 20) {
+//                                    moreHolder.setData(moreHolder.STATE_MORE_NONE);
+//                                    Toast.makeText(UIUtils.getContext(), "没有更多数据了！", Toast.LENGTH_SHORT).show();
+//                                } else {
+//                                    //如果当前数据大于20条，则判断为还有更多数据
+//                                    moreHolder.setData(moreHolder.STATE_MORE_MORE);
+//                                }
+//                                //统一在此将数据添加到布局内，刷新界面显示
+//                                list.addAll(moreData);
+//                                MyBaseAdapter.this.notifyDataSetChanged();
+//
+//                            } else {
+//                                //如果返回无数据，则证明是获取数据错误
+//                                moreHolder.setData(moreHolder.STATE_MORE_ERROR);
+//                            }
+//                            isLoadMore = false;
+//                        }
+//                    });
+//                }
+//            }.start();
+            ThreadManager.getmThreadPool().execute(new Runnable() {
                 @Override
                 public void run() {
                     final List<T> moreData = onLoadMore();
@@ -137,7 +167,7 @@ public abstract class MyBaseAdapter<T> extends android.widget.BaseAdapter {
                         }
                     });
                 }
-            }.start();
+            });
         }
     }
 

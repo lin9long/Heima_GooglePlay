@@ -65,20 +65,21 @@
                 android:orientation="vertical"
                 android:padding="5dp">
 
-                <ImageView
-                    android:layout_gravity="center"
-                    android:id="@+id/iv_download"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/ic_download" />
+                <FrameLayout
+                    android:id="@+id/fl_download"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
 
                 <TextView
-                    android:textColor="#000"
-                    android:textSize="18dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="下载" />
+                    android:layout_below="@id/iv_download"
+                    android:text="下载"
+                    android:id="@+id/tv_download"
+                    android:textColor="#000"
+                    android:textSize="18dp" />
             </LinearLayout>
         </RelativeLayout>
 
